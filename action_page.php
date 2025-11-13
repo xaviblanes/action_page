@@ -1,26 +1,33 @@
-<?php
-// action_page.php
-
-// Comprova si s'ha enviat el formulari amb el mètode POST o GET
-if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    $name = htmlspecialchars($_POST['fname']);
-    $email = htmlspecialchars($_POST['email']);
-} else {
-    $name = htmlspecialchars($_GET['fname'] ?? '');
-    $email = htmlspecialchars($_GET['email'] ?? '');
-}
-?>
-
 <!DOCTYPE html>
 <html>
-<head>
-    <title>Action Page</title>
-</head>
 <body>
 
-<h2>Resultat del formulari</h2>
-<p>Nom: <?php echo $name; ?></p>
-<p>Correu electrònic: <?php echo $email; ?></p>
+<h2>Resultats del formulari</h2>
+
+<?php
+// Comprovem si s'han rebut dades pel mètode GET o POST
+if ($_SERVER["REQUEST_METHOD"] == "GET") {
+    echo "<p><strong>Valors rebuts:</strong></p>";
+
+    // Comprovem cada checkbox
+    if (isset($_GET["vehicle1"])) {
+        echo "Has seleccionat: " . htmlspecialchars($_GET["vehicle1"]) . "<br>";
+    }
+    if (isset($_GET["vehicle2"])) {
+        echo "Has seleccionat: " . htmlspecialchars($_GET["vehicle2"]) . "<br>";
+    }
+    if (isset($_GET["vehicle3"])) {
+        echo "Has seleccionat: " . htmlspecialchars($_GET["vehicle3"]) . "<br>";
+    }
+
+    // Si no s'ha seleccionat cap
+    if (!isset($_GET["vehicle1"]) && !isset($_GET["vehicle2"]) && !isset($_GET["vehicle3"])) {
+        echo "No has seleccionat cap vehicle.";
+    }
+} else {
+    echo "No s'ha rebut cap dada.";
+}
+?>
 
 </body>
 </html>
